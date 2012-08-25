@@ -21,8 +21,11 @@ class Application_Models_OuterTest extends PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		parent::setUp ();
 		
-		$inner = new Application_Model_Inner();
-		$inner->setText("testText");		
+// 		$inner = new Application_Model_Inner();
+// 		$inner->setText("testText");	
+
+		$inner = $this->getMock("Application_Model_Inner");
+		$inner->expects($this->once())->method("getText")->will($this->returnValue('unit'));
 		
 		$this->Application_Models_Outer = new Application_Models_Outer($inner);
 	}
@@ -41,7 +44,7 @@ class Application_Models_OuterTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testHello() {
 
-		$this->assertEquals($this->Application_Models_Outer->hello(), "testText!");
+		$this->assertEquals($this->Application_Models_Outer->hello(), "unit!");
 		
 		
 	}
