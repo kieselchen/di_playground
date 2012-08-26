@@ -15,6 +15,10 @@ class Application_Models_OuterDi {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return Application_Model_Inner
+	 */
 	private function _getInner() {
 		return $this->_di->get("Application_Model_Inner");
 	}
