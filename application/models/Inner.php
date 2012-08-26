@@ -10,8 +10,8 @@ class Application_Model_Inner {
 	
 	/**
 	 */
-	function __construct() {
-		
+	function __construct($text = '') {
+		$this->text = $text;
 	}
 	
 	public function setText($text) {

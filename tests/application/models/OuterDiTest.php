@@ -1,13 +1,16 @@
 <?php
 
-require_once '../application/models/Outer.php';
+use Zend\Di\Di;
+use Zend\Di\Config;
+
+require_once '../application/models/OuterDi.php';
 require_once '../application/models/Inner.php';
 //require_once 'PHPUnit/Framework/TestCase.php';
 
 /**
  * Application_Models_Outer test case.
  */
-class Application_Models_OuterTest extends PHPUnit_Framework_TestCase {
+class Application_Models_OuterDiTest extends PHPUnit_Framework_TestCase {
 	
 	/**
 	 *
@@ -19,15 +22,15 @@ class Application_Models_OuterTest extends PHPUnit_Framework_TestCase {
 	 * Prepares the environment before running a test.
 	 */
 	protected function setUp() {
-		parent::setUp ();
-		
-// 		$inner = new Application_Model_Inner();
-// 		$inner->setText("testText");	
+		parent::setUp ();	
 
-		$inner = $this->getMock("Application_Model_Inner");
-		$inner->expects($this->once())->method("getText")->will($this->returnValue('unit'));
+		$di = new Di();
 		
-		$this->Application_Models_Outer = new Application_Models_Outer($inner);
+		$di->instanceManager()->setParameters('Application_Model_Inner', array(
+				'text' => 'unit'
+		));
+			
+		$this->Application_Models_Outer = new Application_Models_OuterDi($di);
 	}
 	
 	/**
